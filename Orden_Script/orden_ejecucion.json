@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "generado_por": "Agente A00 — análisis de cabeceras XML de QVDs",
+    "metodo": "Sin captura de pantalla. Archivo único presente en Set Pruebas/.",
+    "fecha_analisis": "2026-05-05"
+  },
+  "proyecto": "F1 Histórico",
+  "qlikview_build": "50689",
+  "fecha_ultima_ejecucion_utc": "2026-04-21 17:19:52",
+  "total_archivos": 1,
+  "execution_order": [
+    {
+      "orden": 1,
+      "archivo": "F1 codigo y objetos.qvw",
+      "nivel_indentacion": 0,
+      "depende_de": null,
+      "ruta": "Set Pruebas/F1 codigo y objetos.qvw",
+      "tamanio_bytes": 688384,
+      "rol": "ETL + visualización",
+      "fuente_de_datos": "Formula1 - Historico.xlsx (hojas: constructor, results, drivers)",
+      "qvds_que_genera": ["constructor.qvd", "Resultados.qvd"],
+      "notas": null
+    }
+  ]
+}
