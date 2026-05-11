@@ -1,0 +1,80 @@
+{
+  "proyecto": "F1 Histórico",
+  "aplicacion_principal": "F1 codigo y objetos.qvw",
+  "qlikview_build": "50689",
+  "fecha_ultima_ejecucion": "2026-04-21 17:19:52 UTC",
+  
+  "fuente_datos": {
+    "tipo": "Excel",
+    "archivo": "Formula1 - Historico.xlsx",
+    "hojas": ["constructor", "results", "drivers"]
+  },
+  
+  "modelo_datos": {
+    "tablas": [
+      {
+        "nombre": "constructor",
+        "tipo_propuesto": "dimensional",
+        "numero_registros": 211,
+        "numero_campos": 4,
+        "campos_clave": ["constructorId"]
+      },
+      {
+        "nombre": "Resultados",
+        "tipo_propuesto": "fact",
+        "numero_registros": 26080,
+        "numero_campos": 18,
+        "campos_clave": ["constructorId"]
+      },
+      {
+        "nombre": "Drivers",
+        "tipo_propuesto": "dimensional",
+        "numero_registros": 857,
+        "numero_campos": 8,
+        "campos_clave": ["driverId"],
+        "estado": "⚠️ Tabla cargada pero no relacionada"
+      }
+    ],
+    "relaciones": [
+      {
+        "desde": "Resultados[constructorId]",
+        "hasta": "constructor[constructorId]",
+        "tipo": "many-to-one"
+      }
+    ]
+  },
+  
+  "problemas_identificados": [
+    {
+      "severidad": "ALTA",
+      "tipo": "Desnormalización",
+      "descripcion": "La tabla Resultados contiene campos desnormalizados de Drivers",
+      "impacto_power_bi": "Redundancia de datos y problemas de rendimiento"
+    },
+    {
+      "severidad": "MEDIA",
+      "tipo": "Tabla huérfana",
+      "descripcion": "La tabla Drivers no tiene relación explícita"
+    }
+  ],
+  
+  "star_schema_propuesto": {
+    "tablas_hechos": [
+      {
+        "nombre": "Fact_Resultados",
+        "metricas": ["points", "laps", "milliseconds", "fastestLapSpeed"],
+        "claves_foraneas": ["constructorId", "driverId"]
+      }
+    ],
+    "tablas_dimensionales": [
+      {
+        "nombre": "Dim_Constructor",
+        "campos": ["constructorId", "constructorRef", "name", "nationalityCostructor"]
+      },
+      {
+        "nombre": "Dim_Driver",
+        "campos": ["driverId", "driverRef", "code", "forename", "surname", "dob", "nationalityDriver"]
+      }
+    ]
+  }
+}
