@@ -1,0 +1,83 @@
+version: 2
+
+sources:
+  - name: f1_raw
+    description: "Raw Formula 1 historical data from Excel source"
+    database: "{{ target.database }}"
+    schema: "{{ target.schema }}_raw"
+    
+    tables:
+      - name: constructor
+        description: "Constructor (team) master data - 211 records"
+        columns:
+          - name: constructorRef
+            description: "Unique constructor reference key"
+            tests:
+              - not_null
+              - unique
+          - name: name
+            description: "Constructor team name"
+          - name: nationality
+            description: "Team nationality"
+          - name: url
+            description: "Reference URL for more information"
+            
+      - name: drivers
+        description: "Driver master data - 857 records"
+        columns:
+          - name: driverRef
+            description: "Unique driver reference key"
+            tests:
+              - not_null
+              - unique
+          - name: driverId
+            description: "Numeric driver ID"
+          - name: code
+            description: "Three-letter driver code"
+          - name: number
+            description: "Driver racing number"
+          - name: forename
+            description: "Driver first name"
+          - name: surname
+            description: "Driver last name"
+          - name: dob
+            description: "Driver date of birth"
+          - name: nationality
+            description: "Driver nationality"
+          - name: url
+            description: "Reference URL for driver information"
+            
+      - name: results
+        description: "Race results fact table - 26,080 records"
+        columns:
+          - name: resultId
+            description: "Unique result identifier"
+            tests:
+              - not_null
+              - unique
+          - name: raceId
+            description: "Foreign key to race"
+          - name: driverId
+            description: "Foreign key to driver"
+          - name: constructorId
+            description: "Foreign key to constructor"
+          - name: position
+            description: "Final finishing position"
+          - name: positionOrder
+            description: "Position for ordering (handles DNF)"
+          - name: points
+            description: "Championship points earned"
+          - name: laps
+            description: "Number of laps completed"
+          - name: milliseconds
+            description: "Total race time in milliseconds"
+          - name: fastestLap
+            description: "Lap number of fastest lap"
+          - name: fastestLapTime
+            description: "Fastest lap time"
+          - name: fastestLapSpeed
+            description: "Speed of fastest lap"
+          - name: grid
+            description: "Starting grid position"
+          - name: statusId
+            description: "Race status (finished, retired, etc.)"
