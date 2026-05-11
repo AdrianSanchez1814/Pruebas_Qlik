@@ -1,0 +1,1106 @@
+{
+  "_metadata": {
+    "proyecto": "F1 Histórico",
+    "tipo_documento": "Inventario Completo del Modelo QlikView",
+    "generado_por": "Agente de Extracción de Metadata Qlik",
+    "fecha_extraccion": "2026-05-05",
+    "version": "1.0",
+    "proposito": "Inventario detallado de la estructura del modelo QlikView para migración a Power BI"
+  },
+  
+  "resumen_ejecutivo": {
+    "proyecto": "F1 Histórico",
+    "total_aplicaciones": 3,
+    "total_tablas": 3,
+    "total_campos": 33,
+    "total_registros": 27148,
+    "total_sheets": 4,
+    "total_objetos_visuales": 33,
+    "fuente_datos_principal": "Formula1 - Historico.xlsx",
+    "ultima_ejecucion": "2026-04-21 17:19:52 UTC",
+    "qvds_generados": 2,
+    "tamano_total_datos": "536.3 KB"
+  },
+  
+  "aplicaciones": [
+    {
+      "nombre_archivo": "F1 codigo y objetos.qvw",
+      "ruta": "Set Pruebas/F1 codigo y objetos.qvw",
+      "tamano_bytes": 688384,
+      "rol": "ETL + visualización",
+      "descripcion": "Aplicación principal con lógica ETL y visualizaciones básicas",
+      "orden_ejecucion": 1,
+      "nivel_indentacion": 0,
+      "depende_de": null,
+      "sheets": 1,
+      "objetos_visuales": 3,
+      "ultima_recarga": "2026-04-21 17:19:52 UTC"
+    },
+    {
+      "nombre_archivo": "1.qvw",
+      "ruta": "Set Pruebas/1.qvw",
+      "tamano_bytes": null,
+      "rol": "Visualización (similar a F1 codigo y objetos.qvw)",
+      "descripcion": "Aplicación con visualizaciones similares, posible duplicado o versión alternativa",
+      "sheets": 1,
+      "objetos_visuales": 4,
+      "nota": "Contiene un objeto adicional (CH03) comparado con F1 codigo y objetos.qvw"
+    },
+    {
+      "nombre_archivo": "F1 - Prueba01.qvw",
+      "ruta": "Set Pruebas/F1 - Prueba01.qvw",
+      "tamano_bytes": null,
+      "rol": "Dashboard completo",
+      "descripcion": "Aplicación de prueba con dashboard comprensivo de 2 páginas",
+      "sheets": 2,
+      "objetos_visuales": 26,
+      "nota": "Aplicación más compleja con múltiples tipos de visualizaciones"
+    }
+  ],
+  
+  "estructura_modelo": {
+    "tipo_modelo": "Modelo Asociativo QlikView",
+    "paradigma": "Asociación automática por campos comunes",
+    "total_tablas_usuario": 3,
+    "total_tablas_sistema": 2,
+    "qvds_generados": 2,
+    
+    "tablas": {
+      "tablas_usuario": [
+        {
+          "numero_interno": 0,
+          "nombre": "constructor",
+          "tipo": "Dimension",
+          "descripcion": "Constructores/equipos de Fórmula 1",
+          "filas": 211,
+          "campos_totales": 4,
+          "campos_clave": 1,
+          "tamano_bytes": 772,
+          "fuente_datos": "Formula1 - Historico.xlsx, hoja 'constructor'",
+          "metodo_carga": "LOAD directo desde Excel",
+          "es_linked": false,
+          "es_semantic": false,
+          "es_loose": false,
+          "qvd_generado": "constructor.qvd",
+          
+          "campos": [
+            {
+              "numero_interno": 6,
+              "nombre": "constructorId",
+              "tipo_campo": "Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 211,
+              "total_count": 0,
+              "distinct_only": true,
+              "es_clave": true,
+              "es_sistema": false,
+              "es_oculto": false,
+              "es_numerico": true,
+              "tamano_bytes": 1688,
+              "tags": ["$key", "$numeric", "$integer"],
+              "descripcion": "Identificador único del constructor (Primary Key)"
+            },
+            {
+              "numero_interno": 7,
+              "nombre": "constructorRef",
+              "tipo_campo": "Dimension",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 211,
+              "total_count": 211,
+              "distinct_only": false,
+              "es_clave": false,
+              "es_numerico": false,
+              "tamano_bytes": 2871,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Código de referencia del constructor",
+              "uso_grupos": ["CiclicoG", "JerarquicoG"]
+            },
+            {
+              "numero_interno": 8,
+              "nombre": "name",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 211,
+              "total_count": 211,
+              "es_numerico": false,
+              "tamano_bytes": 2947,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Nombre completo del constructor"
+            },
+            {
+              "numero_interno": 9,
+              "nombre": "nationalityCostructor",
+              "tipo_campo": "Dimension",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 24,
+              "total_count": 211,
+              "es_numerico": false,
+              "tamano_bytes": 334,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Nacionalidad del constructor",
+              "valores_ejemplo": ["British", "Italian", "German", "French"]
+            }
+          ],
+          
+          "relaciones": [
+            {
+              "campo_local": "constructorId",
+              "tabla_relacionada": "Resultados",
+              "campo_relacionado": "constructorId",
+              "tipo": "1:N",
+              "direccion": "Outbound"
+            }
+          ]
+        },
+        
+        {
+          "numero_interno": 1,
+          "nombre": "Resultados",
+          "tipo": "Fact",
+          "descripcion": "Resultados de carreras de Fórmula 1",
+          "filas": 26080,
+          "campos_totales": 18,
+          "campos_clave": 2,
+          "tamano_bytes": 528211,
+          "fuente_datos": "Formula1 - Historico.xlsx, hoja 'results'",
+          "metodo_carga": "LOAD directo desde Excel",
+          "es_linked": false,
+          "qvd_generado": "Resultados.qvd",
+          
+          "campos": [
+            {
+              "numero_interno": 10,
+              "nombre": "resultId",
+              "tipo_campo": "Surrogate Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 26080,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 208640,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Identificador único de resultado"
+            },
+            {
+              "numero_interno": 11,
+              "nombre": "raceId",
+              "tipo_campo": "Foreign Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 1091,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 8728,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Identificador de carrera",
+              "problema": "⚠️ Tabla dimension Races no existe en el modelo"
+            },
+            {
+              "numero_interno": 12,
+              "nombre": "driverId",
+              "tipo_campo": "Foreign Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 857,
+              "total_count": 26080,
+              "es_clave": true,
+              "es_numerico": true,
+              "tamano_bytes": 6856,
+              "tags": ["$key", "$numeric", "$integer"],
+              "descripcion": "Identificador del piloto",
+              "relacionado_con": "Drivers.driverId"
+            },
+            {
+              "numero_interno": 6,
+              "nombre": "constructorId",
+              "tipo_campo": "Foreign Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 211,
+              "total_count": 26080,
+              "es_clave": true,
+              "es_numerico": true,
+              "tamano_bytes": 6856,
+              "tags": ["$key", "$numeric", "$integer"],
+              "descripcion": "Identificador del constructor",
+              "relacionado_con": "constructor.constructorId"
+            },
+            {
+              "numero_interno": 13,
+              "nombre": "number",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 130,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 1169,
+              "descripcion": "Número del coche"
+            },
+            {
+              "numero_interno": 14,
+              "nombre": "grid",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 35,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 280,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Posición en la parrilla de salida"
+            },
+            {
+              "numero_interno": 15,
+              "nombre": "position",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 34,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 305,
+              "descripcion": "Posición final en la carrera",
+              "uso_expresiones": ["Avg(position)"]
+            },
+            {
+              "numero_interno": 16,
+              "nombre": "positionText",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 39,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 339,
+              "descripcion": "Representación texto de la posición"
+            },
+            {
+              "numero_interno": 17,
+              "nombre": "positionOrder",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 39,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 0,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Orden de posición para clasificación",
+              "uso_expresiones": ["Count({<campo={1}> positionOrder)", "Sum(positionOrder)"],
+              "problema": "⚠️ ByteSize=0 puede indicar campo calculado"
+            },
+            {
+              "numero_interno": 18,
+              "nombre": "points",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 39,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 357,
+              "descripcion": "Puntos obtenidos en la carrera",
+              "uso_expresiones": ["Sum(points)", "sum((points-positionOrder)/positionOrder)"]
+            },
+            {
+              "numero_interno": 19,
+              "nombre": "laps",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 172,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 1376,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Número de vueltas completadas"
+            },
+            {
+              "numero_interno": 20,
+              "nombre": "time",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Text",
+              "cardinalidad": 7000,
+              "total_count": 26080,
+              "es_numerico": false,
+              "tamano_bytes": 84078,
+              "descripcion": "Tiempo total de carrera"
+            },
+            {
+              "numero_interno": 21,
+              "nombre": "milliseconds",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 7213,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 64916,
+              "descripcion": "Tiempo de carrera en milisegundos"
+            },
+            {
+              "numero_interno": 22,
+              "nombre": "fastestLap",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 80,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 719,
+              "descripcion": "Número de vuelta más rápida"
+            },
+            {
+              "numero_interno": 23,
+              "nombre": "rank",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 26,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 233,
+              "descripcion": "Ranking de velocidad de vuelta más rápida"
+            },
+            {
+              "numero_interno": 24,
+              "nombre": "fastestLapTime",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 6970,
+              "total_count": 26080,
+              "es_numerico": false,
+              "tamano_bytes": 97574,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Tiempo de vuelta más rápida"
+            },
+            {
+              "numero_interno": 25,
+              "nombre": "fastestLapSpeed",
+              "tipo_campo": "Measure",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 7145,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 64304,
+              "descripcion": "Velocidad de vuelta más rápida"
+            },
+            {
+              "numero_interno": 26,
+              "nombre": "statusId",
+              "tipo_campo": "Foreign Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 137,
+              "total_count": 26080,
+              "es_numerico": true,
+              "tamano_bytes": 1096,
+              "tags": ["$numeric", "$integer"],
+              "descripcion": "Identificador de estado del resultado",
+              "problema": "⚠️ Tabla dimension Status no existe en el modelo"
+            }
+          ],
+          
+          "relaciones": [
+            {
+              "campo_local": "constructorId",
+              "tabla_relacionada": "constructor",
+              "campo_relacionado": "constructorId",
+              "tipo": "N:1",
+              "direccion": "Inbound"
+            },
+            {
+              "campo_local": "driverId",
+              "tabla_relacionada": "Drivers",
+              "campo_relacionado": "driverId",
+              "tipo": "N:1",
+              "direccion": "Inbound"
+            }
+          ]
+        },
+        
+        {
+          "numero_interno": 2,
+          "nombre": "Drivers",
+          "tipo": "Dimension",
+          "descripcion": "Pilotos de Fórmula 1",
+          "filas": 857,
+          "campos_totales": 8,
+          "campos_clave": 1,
+          "tamano_bytes": 7340,
+          "fuente_datos": "Formula1 - Historico.xlsx, hoja 'drivers'",
+          "metodo_carga": "LOAD directo desde Excel",
+          "es_linked": false,
+          
+          "campos": [
+            {
+              "numero_interno": 12,
+              "nombre": "driverId",
+              "tipo_campo": "Key",
+              "tipo_datos": "Numeric Integer",
+              "cardinalidad": 857,
+              "total_count": 857,
+              "distinct_only": true,
+              "es_clave": true,
+              "es_numerico": true,
+              "tamano_bytes": 6856,
+              "tags": ["$key", "$numeric", "$integer"],
+              "descripcion": "Identificador único del piloto (Primary Key)"
+            },
+            {
+              "numero_interno": 27,
+              "nombre": "driverRef",
+              "tipo_campo": "Dimension",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 857,
+              "total_count": 857,
+              "es_numerico": false,
+              "tamano_bytes": 11251,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Código de referencia del piloto",
+              "uso_grupos": ["CiclicoG", "JerarquicoG"]
+            },
+            {
+              "numero_interno": 28,
+              "nombre": "number_driver",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 45,
+              "total_count": 857,
+              "es_numerico": true,
+              "tamano_bytes": 404,
+              "descripcion": "Número permanente del piloto"
+            },
+            {
+              "numero_interno": 29,
+              "nombre": "code",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 95,
+              "total_count": 857,
+              "es_numerico": false,
+              "tamano_bytes": 854,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Código de tres letras del piloto (ej: HAM, VET)"
+            },
+            {
+              "numero_interno": 30,
+              "nombre": "forename",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Text",
+              "cardinalidad": 476,
+              "total_count": 857,
+              "es_numerico": false,
+              "tamano_bytes": 5667,
+              "tags": ["$text"],
+              "descripcion": "Nombre del piloto",
+              "uso_dimensiones": ["CH13"]
+            },
+            {
+              "numero_interno": 31,
+              "nombre": "surname",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Text",
+              "cardinalidad": 798,
+              "total_count": 857,
+              "es_numerico": false,
+              "tamano_bytes": 10375,
+              "tags": ["$text"],
+              "descripcion": "Apellido del piloto"
+            },
+            {
+              "numero_interno": 32,
+              "nombre": "dob",
+              "tipo_campo": "Attribute",
+              "tipo_datos": "Numeric",
+              "cardinalidad": 839,
+              "total_count": 857,
+              "es_numerico": true,
+              "tamano_bytes": 7600,
+              "descripcion": "Fecha de nacimiento (formato numérico QlikView)"
+            },
+            {
+              "numero_interno": 33,
+              "nombre": "nationalityDriver",
+              "tipo_campo": "Dimension",
+              "tipo_datos": "Text ASCII",
+              "cardinalidad": 42,
+              "total_count": 857,
+              "es_numerico": false,
+              "tamano_bytes": 606,
+              "tags": ["$ascii", "$text"],
+              "descripcion": "Nacionalidad del piloto"
+            }
+          ],
+          
+          "relaciones": [
+            {
+              "campo_local": "driverId",
+              "tabla_relacionada": "Resultados",
+              "campo_relacionado": "driverId",
+              "tipo": "1:N",
+              "direccion": "Outbound"
+            }
+          ]
+        }
+      ],
+      
+      "tablas_sistema": [
+        {
+          "numero_interno": 3,
+          "nombre": "$$SysTable 3",
+          "tipo": "System",
+          "filas": 30,
+          "campos": 3,
+          "campos_clave": 2,
+          "tamano_bytes": 67,
+          "descripcion": "Tabla interna del sistema QlikView para asociaciones"
+        },
+        {
+          "numero_interno": 4,
+          "nombre": "$$SysTable 4",
+          "tipo": "System",
+          "filas": 3,
+          "campos": 3,
+          "campos_clave": 1,
+          "tamano_bytes": 24,
+          "descripcion": "Tabla interna del sistema QlikView"
+        }
+      ]
+    },
+    
+    "asociaciones_automaticas": [
+      {
+        "campo_comun": "constructorId",
+        "tablas_asociadas": ["constructor", "Resultados"],
+        "tipo_asociacion": "Clave",
+        "cardinalidad_global": 211
+      },
+      {
+        "campo_comun": "driverId",
+        "tablas_asociadas": ["Resultados", "Drivers"],
+        "tipo_asociacion": "Clave",
+        "cardinalidad_global": 857
+      }
+    ],
+    
+    "grupos_dimensionales": [
+      {
+        "nombre": "CiclicoG",
+        "tipo": "Cyclic Group",
+        "es_ciclico": true,
+        "campos": [
+          {
+            "nombre": "constructorRef",
+            "tipo": "PRESENT",
+            "origen_tabla": "constructor"
+          },
+          {
+            "nombre": "driverRef",
+            "tipo": "PRESENT",
+            "origen_tabla": "Drivers"
+          }
+        ],
+        "descripcion": "Permite alternar entre vista por constructor o por piloto",
+        "uso_aplicaciones": ["F1 codigo y objetos.qvw", "1.qvw"]
+      },
+      {
+        "nombre": "JerarquicoG",
+        "alias": "Grupo_Jerarquico",
+        "tipo": "Hierarchical Group",
+        "es_ciclico": false,
+        "campos": [
+          {
+            "nombre": "constructorRef",
+            "tipo": "PRESENT",
+            "nivel": 1,
+            "origen_tabla": "constructor"
+          },
+          {
+            "nombre": "driverRef",
+            "tipo": "PRESENT",
+            "nivel": 2,
+            "origen_tabla": "Drivers"
+          }
+        ],
+        "descripcion": "Jerarquía drill-down de constructor a piloto",
+        "uso_aplicaciones": ["1.qvw", "F1 - Prueba01.qvw"]
+      },
+      {
+        "nombre": "Grupo_Ciclico",
+        "tipo": "Cyclic Group",
+        "es_ciclico": true,
+        "nota": "Variante de nomenclatura en F1 - Prueba01.qvw",
+        "equivalente_a": "CiclicoG",
+        "campos": [
+          {
+            "nombre": "constructorRef",
+            "tipo": "PRESENT"
+          },
+          {
+            "nombre": "driverRef",
+            "tipo": "PRESENT"
+          }
+        ],
+        "uso_aplicaciones": ["F1 - Prueba01.qvw"]
+      }
+    ]
+  },
+  
+  "interfaz_usuario": {
+    "total_sheets": 4,
+    "total_objetos": 33,
+    
+    "sheets": [
+      {
+        "aplicacion": "F1 codigo y objetos.qvw",
+        "sheet_id": "Document\\SH01",
+        "titulo": "Principal",
+        "objetos_hijos": 3,
+        "objetos": [
+          {
+            "object_id": "Document\\CH01",
+            "caption": "Tabla",
+            "tipo": "Tabla Pivotante",
+            "dimensiones": ["CiclicoG"],
+            "expresiones": 2
+          },
+          {
+            "object_id": "Document\\LB01",
+            "caption": "constructorRef",
+            "tipo": "Cuadro de Lista",
+            "campo": "constructorRef"
+          },
+          {
+            "object_id": "Document\\CH02",
+            "caption": "Contar Set Analisis",
+            "tipo": "Gráfico Mekko",
+            "dimensiones": ["CiclicoG"],
+            "expresiones": 2
+          }
+        ]
+      },
+      {
+        "aplicacion": "1.qvw",
+        "sheet_id": "Document\\SH01",
+        "titulo": "Principal",
+        "objetos_hijos": 4,
+        "objetos": [
+          {
+            "object_id": "Document\\CH01",
+            "caption": "Tabla",
+            "tipo": "Tabla Pivotante",
+            "dimensiones": ["CiclicoG"],
+            "expresiones": 2
+          },
+          {
+            "object_id": "Document\\LB01",
+            "caption": "constructorRef",
+            "tipo": "Cuadro de Lista",
+            "campo": "constructorRef"
+          },
+          {
+            "object_id": "Document\\CH02",
+            "caption": "Contar Set Analisis",
+            "tipo": "Gráfico Mekko",
+            "dimensiones": ["CiclicoG"],
+            "expresiones": 2
+          },
+          {
+            "object_id": "Document\\CH03",
+            "caption": "Tabla",
+            "tipo": "Tabla Pivotante",
+            "dimensiones": ["JerarquicoG"],
+            "expresiones": 2
+          }
+        ]
+      },
+      {
+        "aplicacion": "F1 - Prueba01.qvw",
+        "sheet_id": "Document\\Panta1",
+        "titulo": "Pantalla 1",
+        "objetos_hijos": 10,
+        "objetos": [
+          {
+            "object_id": "Document\\CH02",
+            "caption": "Tabla Pivotante Grupo Ciclico",
+            "tipo": "Tabla Simple"
+          },
+          {
+            "object_id": "Document\\CH03",
+            "caption": "Tabla Pivotante Jerarquico",
+            "tipo": "Tabla Pivotante"
+          },
+          {
+            "object_id": "Document\\LB34",
+            "caption": null,
+            "tipo": "Cuadro de Lista"
+          },
+          {
+            "object_id": "Document\\CH04",
+            "caption": "Grafico de barras",
+            "tipo": "Gráfico de Barras"
+          },
+          {
+            "object_id": "Document\\SB02",
+            "caption": null,
+            "tipo": "Slider"
+          },
+          {
+            "object_id": "Document\\MB01",
+            "caption": null,
+            "tipo": "Multi Box"
+          },
+          {
+            "object_id": "Document\\TB02",
+            "caption": null,
+            "tipo": "Table Box"
+          },
+          {
+            "object_id": "Document\\CH06",
+            "caption": "Grafico combinado",
+            "tipo": "Gráfico Combinado"
+          },
+          {
+            "object_id": "Document\\CH07",
+            "caption": "Grafico indicador",
+            "tipo": "Gráfico de Indicador"
+          },
+          {
+            "object_id": "Document\\BU03",
+            "caption": null,
+            "tipo": "Button"
+          }
+        ]
+      },
+      {
+        "aplicacion": "F1 - Prueba01.qvw",
+        "sheet_id": "Document\\SH02",
+        "titulo": "Pantalla 2",
+        "objetos_hijos": 16,
+        "objetos": [
+          {
+            "object_id": "Document\\TX01",
+            "caption": null,
+            "tipo": "Text Object"
+          },
+          {
+            "object_id": "Document\\BU01",
+            "caption": null,
+            "tipo": "Button"
+          },
+          {
+            "object_id": "Document\\BU02",
+            "caption": null,
+            "tipo": "Button"
+          },
+          {
+            "object_id": "Document\\IB01",
+            "caption": null,
+            "tipo": "Input Box"
+          },
+          {
+            "object_id": "Document\\SO01",
+            "caption": null,
+            "tipo": "Search Object"
+          },
+          {
+            "object_id": "Document\\CH05",
+            "caption": "Grafico de lineas",
+            "tipo": "Gráfico de líneas"
+          },
+          {
+            "object_id": "Document\\CH08",
+            "caption": "Grafico de tarta",
+            "tipo": "Gráfico de Tarta"
+          },
+          {
+            "object_id": "Document\\CH09",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\CH11",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\CH13",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\CH14",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\CH15",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\CH16",
+            "caption": null,
+            "tipo": "Chart (Tipo no especificado)"
+          },
+          {
+            "object_id": "Document\\LA01",
+            "caption": null,
+            "tipo": "Line/Arrow"
+          },
+          {
+            "object_id": "Document\\SL01",
+            "caption": null,
+            "tipo": "Slider"
+          },
+          {
+            "object_id": "Document\\BM01",
+            "caption": null,
+            "tipo": "Bookmark Object"
+          }
+        ]
+      }
+    ],
+    
+    "tipos_objetos_resumen": {
+      "graficos": {
+        "Tabla Pivotante": 4,
+        "Tabla Simple": 1,
+        "Gráfico Mekko": 2,
+        "Gráfico de Barras": 1,
+        "Gráfico de líneas": 1,
+        "Gráfico Combinado": 1,
+        "Gráfico de Indicador": 1,
+        "Gráfico de Tarta": 1,
+        "Chart (Sin especificar)": 6
+      },
+      "controles": {
+        "Cuadro de Lista": 2,
+        "Button": 3,
+        "Slider": 2,
+        "Multi Box": 1,
+        "Table Box": 1,
+        "Input Box": 1,
+        "Search Object": 1,
+        "Bookmark Object": 1
+      },
+      "otros": {
+        "Text Object": 1,
+        "Line/Arrow": 1
+      }
+    }
+  },
+  
+  "expresiones_set_analysis": {
+    "total_expresiones": 25,
+    "patron_principal": "{<campo={1}>}",
+    "problema_identificado": "Campo 'campo' no existe en metadata de tablas",
+    
+    "expresiones_documentadas": [
+      {
+        "expresion": "Count({<campo={1}> positionOrder)",
+        "label": "Contar Set Analisis",
+        "objetos_usados": ["CH01", "CH02", "CH03", "CH07"],
+        "descripcion": "Cuenta positionOrder donde campo=1",
+        "problema": "⚠️ Campo 'campo' no documentado"
+      },
+      {
+        "expresion": "Sum(positionOrder)",
+        "label": "Suma",
+        "objetos_usados": ["CH01", "CH02", "CH03"],
+        "descripcion": "Suma total de positionOrder"
+      },
+      {
+        "expresion": "Sum(points)",
+        "label": "Suma",
+        "objetos_usados": ["CH07"],
+        "descripcion": "Suma de puntos obtenidos"
+      },
+      {
+        "expresion": "sum((points-positionOrder)/positionOrder)",
+        "label": "% Expression",
+        "objetos_usados": ["CH07"],
+        "descripcion": "Cálculo porcentual de rendimiento"
+      },
+      {
+        "expresion": "Avg(position)",
+        "label": "position",
+        "objetos_usados": ["CH08", "CH09", "CH11", "CH13", "CH14", "CH15", "CH16"],
+        "descripcion": "Promedio de posición final"
+      },
+      {
+        "expresion": "Sum([points])",
+        "label": "points",
+        "objetos_usados": ["CH11", "CH13"],
+        "descripcion": "Suma de puntos (con corchetes)"
+      }
+    ]
+  },
+  
+  "variables": {
+    "variables_sistema": {
+      "formato_numeros": {
+        "ThousandSep": ".",
+        "DecimalSep": ",",
+        "MoneyThousandSep": ".",
+        "MoneyDecimalSep": ",",
+        "MoneyFormat": "#.##0,00 €;-#.##0,00 €"
+      },
+      "formato_fechas": {
+        "TimeFormat": "h:mm:ss",
+        "DateFormat": "D/M/YYYY",
+        "TimestampFormat": "D/M/YYYY h:mm:ss[.fff]",
+        "FirstWeekDay": "0",
+        "BrokenWeeks": "0",
+        "ReferenceDay": "4",
+        "FirstMonthOfYear": "1"
+      },
+      "configuracion_regional": {
+        "CollationLocale": "es-ES",
+        "MonthNames": "ene;feb;mar;abr;may;jun;jul;ago;sept;oct;nov;dic",
+        "LongMonthNames": "enero;febrero;marzo;abril;mayo;junio;julio;agosto;septiembre;octubre;noviembre;diciembre",
+        "DayNames": "lun;mar;mié;jue;vie;sáb;dom",
+        "LongDayNames": "lunes;martes;miércoles;jueves;viernes;sábado;domingo"
+      },
+      "manejo_errores": {
+        "ErrorMode": "",
+        "ScriptError": "",
+        "ScriptErrorCount": "0",
+        "ScriptErrorList": ""
+      }
+    },
+    "variables_personalizadas": []
+  },
+  
+  "bookmarks": [
+    {
+      "bookmark_id": "$LASTKNOWNSTATE",
+      "name": "$LASTKNOWNSTATE",
+      "descripcion": "Estado de última selección (bookmark del sistema)"
+    }
+  ],
+  
+  "lineage_qvds": [
+    {
+      "discriminator": "{STORE - STORE Resultados INTO Resultados.qvd (qvd)};",
+      "tabla_origen": "Resultados",
+      "archivo_destino": "Resultados.qvd",
+      "formato": "qvd",
+      "tipo_operacion": "STORE"
+    },
+    {
+      "discriminator": "{STORE - STORE constructor INTO constructor.qvd (qvd)};",
+      "tabla_origen": "constructor",
+      "archivo_destino": "constructor.qvd",
+      "formato": "qvd",
+      "tipo_operacion": "STORE"
+    }
+  ],
+  
+  "lineage_fuentes_datos": [
+    {
+      "discriminator": "c:\\users\\jorgebolanos\\onedrive - epam\\bola_qlik\\aqualiamigracionqlik_pbi\\set pruebas\\formula1 - historico.xlsx",
+      "tipo": "Excel",
+      "aplicacion": "F1 codigo y objetos.qvw",
+      "usuario": "jorgebolanos"
+    },
+    {
+      "discriminator": "c:\\users\\jorgebolanos\\desktop\\apoc qlik pbi\\formula1 - historico.xlsx",
+      "tipo": "Excel",
+      "aplicacion": "1.qvw",
+      "usuario": "jorgebolanos"
+    },
+    {
+      "discriminator": "c:\\users\\albertogonzalez1\\desktop\\set de pruebas\\formula1 - historico.xlsx",
+      "tipo": "Excel",
+      "aplicacion": "F1 - Prueba01.qvw",
+      "usuario": "albertogonzalez1"
+    }
+  ],
+  
+  "campos_problematicos": [
+    {
+      "campo": "campo",
+      "problema": "Usado en Set Analysis pero no existe en metadata",
+      "severidad": "CRÍTICA",
+      "expresiones_afectadas": ["Count({<campo={1}> positionOrder)"],
+      "accion_requerida": "Identificar origen en script de carga"
+    },
+    {
+      "campo": "positionOrder",
+      "problema": "ByteSize=0 puede indicar campo calculado",
+      "severidad": "MEDIA",
+      "tabla": "Resultados",
+      "accion_requerida": "Verificar si es persistido o calculado"
+    },
+    {
+      "campo": "driverRef",
+      "problema": "Cardinalidad diferente en Resultados (60) vs Drivers (857)",
+      "severidad": "MEDIA",
+      "aplicaciones_afectadas": ["1.qvw", "F1 - Prueba01.qvw"],
+      "accion_requerida": "Verificar JOIN o denormalización"
+    },
+    {
+      "campo": "raceId",
+      "problema": "No existe tabla dimension Races",
+      "severidad": "ALTA",
+      "cardinalidad": 1091,
+      "accion_requerida": "Crear tabla Dim_Race"
+    },
+    {
+      "campo": "statusId",
+      "problema": "No existe tabla dimension Status",
+      "severidad": "ALTA",
+      "cardinalidad": 137,
+      "accion_requerida": "Crear tabla Dim_Status"
+    }
+  ],
+  
+  "metricas_modelo": {
+    "complejidad": {
+      "total_tablas": 3,
+      "total_campos": 33,
+      "total_relaciones": 2,
+      "campos_clave": 4,
+      "grupos_dimensionales": 3,
+      "nivel_complejidad": "Bajo"
+    },
+    "cardinalidad": {
+      "tabla_mayor": {
+        "nombre": "Resultados",
+        "filas": 26080
+      },
+      "tabla_menor": {
+        "nombre": "constructor",
+        "filas": 211
+      },
+      "campo_mayor_cardinalidad": {
+        "nombre": "resultId",
+        "cardinalidad": 26080,
+        "tabla": "Resultados"
+      }
+    },
+    "uso_memoria": {
+      "total_bytes": 536321,
+      "total_kb": 523.75,
+      "total_mb": 0.51,
+      "tabla_mayor": {
+        "nombre": "Resultados",
+        "bytes": 528211,
+        "porcentaje": 98.49
+      }
+    },
+    "distribucion_tipos_campos": {
+      "numeric": 15,
+      "numeric_integer": 12,
+      "text": 4,
+      "text_ascii": 6
+    }
+  },
+  
+  "recomendaciones": {
+    "criticas": [
+      "Resolver el campo 'campo' usado en Set Analysis",
+      "Crear tabla Dim_Race con metadata de carreras",
+      "Validar integridad referencial de todas las FK"
+    ],
+    "importantes": [
+      "Crear tabla Dim_Status con descripciones de estados",
+      "Estandarizar nomenclatura de grupos (CiclicoG vs Grupo_Ciclico)",
+      "Verificar campo positionOrder con ByteSize=0"
+    ],
+    "sugerencias": [
+      "Agregar tabla Dim_Calendar para análisis temporal",
+      "Consolidar aplicaciones duplicadas (F1 codigo y objetos.qvw vs 1.qvw)",
+      "Documentar lógica de negocio de cada expresión",
+      "Optimizar nombres de campos (ej: nationalityCostructor)"
+    ]
+  }
+}
