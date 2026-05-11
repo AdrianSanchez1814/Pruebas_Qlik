@@ -1,0 +1,844 @@
+{
+  "_metadata": {
+    "proyecto": "F1 Histórico",
+    "generado_por": "Agente de Extracción de Metadata Qlik",
+    "fecha_extraccion": "2026-05-05",
+    "fecha_ultima_ejecucion_qvw": "2026-04-21 17:19:52 UTC",
+    "qlikview_build": "50689",
+    "version": "1.0",
+    "aplicaciones_analizadas": [
+      "F1 codigo y objetos.qvw",
+      "1.qvw",
+      "F1 - Prueba01.qvw"
+    ]
+  },
+  
+  "modelo_actual_qlikview": {
+    "descripcion": "Modelo de datos actual en QlikView extraído de metadata",
+    "total_tablas": 3,
+    "total_campos": 33,
+    "total_registros": 27148,
+    "fuente_datos": "Formula1 - Historico.xlsx",
+    
+    "tablas": [
+      {
+        "nombre": "constructor",
+        "tipo": "Dimension",
+        "numero_interno": 0,
+        "filas": 211,
+        "campos": 4,
+        "campos_clave": 1,
+        "tamano_bytes": 772,
+        "es_sistema": false,
+        "descripcion": "Tabla de dimension de constructores/equipos de F1",
+        
+        "campos": [
+          {
+            "nombre": "constructorId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 211,
+            "total_count": 0,
+            "es_clave": true,
+            "es_distinct_only": true,
+            "rol": "Primary Key",
+            "uso": "Clave primaria de constructor",
+            "tamano_bytes": 1688,
+            "tags": ["$key", "$numeric", "$integer"]
+          },
+          {
+            "nombre": "constructorRef",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 211,
+            "total_count": 211,
+            "es_clave": false,
+            "rol": "Dimension",
+            "uso": "Código/referencia única del constructor, usado en grupos cíclicos y jerárquicos",
+            "tamano_bytes": 2871,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "nombre": "name",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 211,
+            "total_count": 211,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Nombre completo del constructor",
+            "tamano_bytes": 2947,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "nombre": "nationalityCostructor",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 24,
+            "total_count": 211,
+            "es_clave": false,
+            "rol": "Dimension",
+            "uso": "Nacionalidad del constructor, usado para agrupaciones en gráficos",
+            "tamano_bytes": 334,
+            "tags": ["$ascii", "$text"]
+          }
+        ]
+      },
+      
+      {
+        "nombre": "Resultados",
+        "tipo": "Fact",
+        "numero_interno": 1,
+        "filas": 26080,
+        "campos": 18,
+        "campos_clave": 2,
+        "tamano_bytes": 528211,
+        "es_sistema": false,
+        "descripcion": "Tabla de hechos con resultados de carreras de F1",
+        
+        "campos": [
+          {
+            "nombre": "resultId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 26080,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Surrogate Key",
+            "uso": "Identificador único de resultado",
+            "tamano_bytes": 208640,
+            "tags": ["$numeric", "$integer"]
+          },
+          {
+            "nombre": "raceId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 1091,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Foreign Key",
+            "uso": "Referencia a carrera (TABLA FALTANTE)",
+            "tamano_bytes": 8728,
+            "tags": ["$numeric", "$integer"],
+            "problemas": ["⚠️ Sin tabla dimension correspondiente"]
+          },
+          {
+            "nombre": "driverId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 857,
+            "total_count": 26080,
+            "es_clave": true,
+            "rol": "Foreign Key",
+            "uso": "Relación con tabla Drivers",
+            "tamano_bytes": 6856,
+            "tags": ["$key", "$numeric", "$integer"]
+          },
+          {
+            "nombre": "constructorId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 211,
+            "total_count": 26080,
+            "es_clave": true,
+            "rol": "Foreign Key",
+            "uso": "Relación con tabla constructor",
+            "tamano_bytes": 6856,
+            "tags": ["$key", "$numeric", "$integer"]
+          },
+          {
+            "nombre": "number",
+            "tipo_datos": "numeric",
+            "cardinalidad": 130,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Número del coche",
+            "tamano_bytes": 1169,
+            "tags": []
+          },
+          {
+            "nombre": "grid",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 35,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Posición en la parrilla de salida",
+            "tamano_bytes": 280,
+            "tags": ["$numeric", "$integer"]
+          },
+          {
+            "nombre": "position",
+            "tipo_datos": "numeric",
+            "cardinalidad": 34,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Posición final en la carrera, usado en Avg()",
+            "tamano_bytes": 305,
+            "tags": []
+          },
+          {
+            "nombre": "positionText",
+            "tipo_datos": "numeric",
+            "cardinalidad": 39,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Texto de la posición",
+            "tamano_bytes": 339,
+            "tags": []
+          },
+          {
+            "nombre": "positionOrder",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 39,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Orden de posición, usado en Count() y Sum() con Set Analysis",
+            "tamano_bytes": 0,
+            "tags": ["$numeric", "$integer"],
+            "problemas": ["⚠️ ByteSize=0 puede indicar campo calculado o problema de metadata"]
+          },
+          {
+            "nombre": "points",
+            "tipo_datos": "numeric",
+            "cardinalidad": 39,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Puntos obtenidos, usado en Sum() y cálculos %",
+            "tamano_bytes": 357,
+            "tags": []
+          },
+          {
+            "nombre": "laps",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 172,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Vueltas completadas",
+            "tamano_bytes": 1376,
+            "tags": ["$numeric", "$integer"]
+          },
+          {
+            "nombre": "time",
+            "tipo_datos": "text",
+            "cardinalidad": 7000,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Tiempo de carrera",
+            "tamano_bytes": 84078,
+            "tags": []
+          },
+          {
+            "nombre": "milliseconds",
+            "tipo_datos": "numeric",
+            "cardinalidad": 7213,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Tiempo en milisegundos",
+            "tamano_bytes": 64916,
+            "tags": []
+          },
+          {
+            "nombre": "fastestLap",
+            "tipo_datos": "numeric",
+            "cardinalidad": 80,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Número de vuelta más rápida",
+            "tamano_bytes": 719,
+            "tags": []
+          },
+          {
+            "nombre": "rank",
+            "tipo_datos": "numeric",
+            "cardinalidad": 26,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Ranking",
+            "tamano_bytes": 233,
+            "tags": []
+          },
+          {
+            "nombre": "fastestLapTime",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 6970,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Tiempo de vuelta más rápida",
+            "tamano_bytes": 97574,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "nombre": "fastestLapSpeed",
+            "tipo_datos": "numeric",
+            "cardinalidad": 7145,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Measure",
+            "uso": "Velocidad de vuelta más rápida",
+            "tamano_bytes": 64304,
+            "tags": []
+          },
+          {
+            "nombre": "statusId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 137,
+            "total_count": 26080,
+            "es_clave": false,
+            "rol": "Foreign Key",
+            "uso": "Estado del resultado (TABLA FALTANTE)",
+            "tamano_bytes": 1096,
+            "tags": ["$numeric", "$integer"],
+            "problemas": ["⚠️ Sin tabla dimension correspondiente"]
+          }
+        ]
+      },
+      
+      {
+        "nombre": "Drivers",
+        "tipo": "Dimension",
+        "numero_interno": 2,
+        "filas": 857,
+        "campos": 8,
+        "campos_clave": 1,
+        "tamano_bytes": 7340,
+        "es_sistema": false,
+        "descripcion": "Tabla de dimension de pilotos de F1",
+        
+        "campos": [
+          {
+            "nombre": "driverId",
+            "tipo_datos": "numeric_integer",
+            "cardinalidad": 857,
+            "total_count": 857,
+            "es_clave": true,
+            "es_distinct_only": true,
+            "rol": "Primary Key",
+            "uso": "Clave primaria de piloto",
+            "tamano_bytes": 6856,
+            "tags": ["$key", "$numeric", "$integer"]
+          },
+          {
+            "nombre": "driverRef",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 857,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Dimension",
+            "uso": "Código/referencia única del piloto, usado en grupos cíclicos y jerárquicos",
+            "tamano_bytes": 11251,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "nombre": "number_driver",
+            "tipo_datos": "numeric",
+            "cardinalidad": 45,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Número del piloto",
+            "tamano_bytes": 404,
+            "tags": []
+          },
+          {
+            "nombre": "code",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 95,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Código de tres letras del piloto",
+            "tamano_bytes": 854,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "nombre": "forename",
+            "tipo_datos": "text",
+            "cardinalidad": 476,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Nombre del piloto, usado como dimensión en gráficos",
+            "tamano_bytes": 5667,
+            "tags": ["$text"]
+          },
+          {
+            "nombre": "surname",
+            "tipo_datos": "text",
+            "cardinalidad": 798,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Apellido del piloto",
+            "tamano_bytes": 10375,
+            "tags": ["$text"]
+          },
+          {
+            "nombre": "dob",
+            "tipo_datos": "numeric",
+            "cardinalidad": 839,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Attribute",
+            "uso": "Fecha de nacimiento (como número)",
+            "tamano_bytes": 7600,
+            "tags": []
+          },
+          {
+            "nombre": "nationalityDriver",
+            "tipo_datos": "text_ascii",
+            "cardinalidad": 42,
+            "total_count": 857,
+            "es_clave": false,
+            "rol": "Dimension",
+            "uso": "Nacionalidad del piloto",
+            "tamano_bytes": 606,
+            "tags": ["$ascii", "$text"]
+          }
+        ]
+      }
+    ],
+    
+    "relaciones": [
+      {
+        "desde_tabla": "Resultados",
+        "desde_campo": "constructorId",
+        "hacia_tabla": "constructor",
+        "hacia_campo": "constructorId",
+        "tipo": "N:1",
+        "cardinalidad": "Many-to-One",
+        "descripcion": "Múltiples resultados para un constructor",
+        "es_problematica": false
+      },
+      {
+        "desde_tabla": "Resultados",
+        "desde_campo": "driverId",
+        "hacia_tabla": "Drivers",
+        "hacia_campo": "driverId",
+        "tipo": "N:1",
+        "cardinalidad": "Many-to-One",
+        "descripcion": "Múltiples resultados para un piloto",
+        "es_problematica": false
+      }
+    ],
+    
+    "grupos_dimensionales": [
+      {
+        "nombre": "CiclicoG",
+        "tipo": "Cyclic",
+        "descripcion": "Grupo cíclico que permite alternar entre constructorRef y driverRef",
+        "campos": ["constructorRef", "driverRef"],
+        "uso": "Tablas pivotantes y gráficos en F1 codigo y objetos.qvw y 1.qvw"
+      },
+      {
+        "nombre": "JerarquicoG",
+        "tipo": "Hierarchical",
+        "alias": "Grupo_Jerarquico",
+        "descripcion": "Grupo jerárquico constructor → driver",
+        "campos": ["constructorRef", "driverRef"],
+        "jerarquia": ["constructorRef", "driverRef"],
+        "uso": "Análisis drill-down de constructor a piloto"
+      },
+      {
+        "nombre": "Grupo_Ciclico",
+        "tipo": "Cyclic",
+        "descripcion": "Variante del nombre en F1 - Prueba01.qvw (mismo que CiclicoG)",
+        "campos": ["constructorRef", "driverRef"]
+      }
+    ],
+    
+    "qvds_generados": [
+      {
+        "nombre": "constructor.qvd",
+        "origen_tabla": "constructor",
+        "filas": 211,
+        "comando": "STORE constructor INTO constructor.qvd (qvd);"
+      },
+      {
+        "nombre": "Resultados.qvd",
+        "origen_tabla": "Resultados",
+        "filas": 26080,
+        "comando": "STORE Resultados INTO Resultados.qvd (qvd);"
+      }
+    ]
+  },
+  
+  "problemas_identificados": [
+    {
+      "severidad": "CRÍTICA",
+      "categoria": "Campos Faltantes",
+      "descripcion": "Campo 'campo' usado en Set Analysis no existe en metadata",
+      "impacto": "Todas las expresiones Count({<campo={1}>} positionOrder) fallarán si no se identifica",
+      "expresiones_afectadas": [
+        "Count({<campo={1}> positionOrder)"
+      ],
+      "archivos_afectados": ["F1 codigo y objetos.qvw", "1.qvw", "F1 - Prueba01.qvw"],
+      "accion_requerida": "Revisar script de carga para identificar origen del campo 'campo'",
+      "prioridad": 1
+    },
+    {
+      "severidad": "ALTA",
+      "categoria": "Tablas Dimension Faltantes",
+      "descripcion": "Tabla dimension para raceId no existe",
+      "impacto": "No hay información sobre carreras (fecha, circuito, temporada, etc.)",
+      "campos_afectados": ["raceId"],
+      "cardinalidad": 1091,
+      "accion_requerida": "Crear tabla Dim_Race con metadata de carreras",
+      "prioridad": 2
+    },
+    {
+      "severidad": "ALTA",
+      "categoria": "Tablas Dimension Faltantes",
+      "descripcion": "Tabla dimension para statusId no existe",
+      "impacto": "No hay descripción de estados (Finished, +1 Lap, Accident, etc.)",
+      "campos_afectados": ["statusId"],
+      "cardinalidad": 137,
+      "accion_requerida": "Crear tabla Dim_Status con descripciones de estados",
+      "prioridad": 2
+    },
+    {
+      "severidad": "MEDIA",
+      "categoria": "Campos Calculados",
+      "descripcion": "positionOrder tiene ByteSize=0",
+      "impacto": "Puede indicar campo calculado o error en metadata",
+      "campos_afectados": ["positionOrder"],
+      "accion_requerida": "Verificar si es campo calculado o persistido",
+      "prioridad": 3
+    },
+    {
+      "severidad": "MEDIA",
+      "categoria": "Relaciones Incompletas",
+      "descripcion": "driverRef aparece en Resultados con cardinalidad diferente (60 vs 857)",
+      "impacto": "Posible denormalización o solo subset de pilotos en resultados",
+      "detalle": "En 1.qvw y F1 - Prueba01.qvw: driverRef en Resultados tiene 60 valores, pero Drivers tiene 857",
+      "accion_requerida": "Verificar si hay JOIN que limita pilotos o si es correcto",
+      "prioridad": 3
+    },
+    {
+      "severidad": "BAJA",
+      "categoria": "Inconsistencia Nomenclatura",
+      "descripcion": "Nombres de grupos inconsistentes",
+      "detalle": "JerarquicoG vs Grupo_Jerarquico, CiclicoG vs Grupo_Ciclico",
+      "accion_requerida": "Estandarizar nomenclatura",
+      "prioridad": 4
+    },
+    {
+      "severidad": "BAJA",
+      "categoria": "Tabla Calendario Faltante",
+      "descripcion": "No existe tabla de calendario/fecha",
+      "impacto": "Análisis temporal limitado",
+      "accion_requerida": "Crear tabla Dim_Calendar si se requiere análisis temporal",
+      "prioridad": 5
+    }
+  ],
+  
+  "propuesta_star_schema_powerbi": {
+    "descripcion": "Esquema estrella propuesto para migración a Power BI",
+    "tipo": "Star Schema",
+    "mejoras": "Se propone mantener el esquema actual con adiciones de tablas dimension faltantes",
+    
+    "tablas_dimension": [
+      {
+        "nombre_propuesto": "Dim_Constructor",
+        "origen": "constructor (sin cambios)",
+        "tipo": "Dimension SCD Type 1",
+        "clave_primaria": "constructorId",
+        "campos": [
+          "constructorId",
+          "constructorRef",
+          "name",
+          "nationalityCostructor"
+        ],
+        "filas": 211,
+        "cambios": "Ninguno - usar tal cual"
+      },
+      {
+        "nombre_propuesto": "Dim_Driver",
+        "origen": "Drivers (sin cambios)",
+        "tipo": "Dimension SCD Type 1",
+        "clave_primaria": "driverId",
+        "campos": [
+          "driverId",
+          "driverRef",
+          "number_driver",
+          "code",
+          "forename",
+          "surname",
+          "dob",
+          "nationalityDriver"
+        ],
+        "filas": 857,
+        "cambios": "Considerar calcular edad a partir de dob"
+      },
+      {
+        "nombre_propuesto": "Dim_Race",
+        "origen": "NUEVA - Extraer de fuente Excel o crear",
+        "tipo": "Dimension SCD Type 1",
+        "clave_primaria": "raceId",
+        "campos_sugeridos": [
+          "raceId",
+          "year",
+          "round",
+          "circuitId",
+          "circuitName",
+          "country",
+          "date",
+          "time",
+          "url"
+        ],
+        "filas_estimadas": 1091,
+        "cambios": "CREAR NUEVA TABLA",
+        "prioridad": "ALTA"
+      },
+      {
+        "nombre_propuesto": "Dim_Status",
+        "origen": "NUEVA - Extraer de fuente Excel o crear lookup manual",
+        "tipo": "Dimension SCD Type 1",
+        "clave_primaria": "statusId",
+        "campos_sugeridos": [
+          "statusId",
+          "status",
+          "statusCategory"
+        ],
+        "filas_estimadas": 137,
+        "valores_ejemplo": ["Finished", "+1 Lap", "+2 Laps", "Accident", "Engine", "Gearbox", "Transmission"],
+        "cambios": "CREAR NUEVA TABLA",
+        "prioridad": "MEDIA"
+      },
+      {
+        "nombre_propuesto": "Dim_Calendar",
+        "origen": "NUEVA - Generar con DAX o Power Query",
+        "tipo": "Dimension Calendar",
+        "clave_primaria": "Date",
+        "campos_sugeridos": [
+          "Date",
+          "Year",
+          "Quarter",
+          "Month",
+          "MonthName",
+          "WeekOfYear",
+          "DayOfWeek",
+          "DayName",
+          "IsWeekend"
+        ],
+        "cambios": "CREAR NUEVA TABLA (opcional, para análisis temporal)",
+        "prioridad": "BAJA",
+        "relacion": "Relacionar con Dim_Race[date]"
+      }
+    ],
+    
+    "tabla_hechos": {
+      "nombre_propuesto": "Fact_RaceResults",
+      "origen": "Resultados (renombrar)",
+      "tipo": "Fact Table - Transaction Grain",
+      "granularidad": "Un registro por resultado de piloto en una carrera",
+      "claves_foraneas": [
+        "raceId → Dim_Race[raceId]",
+        "driverId → Dim_Driver[driverId]",
+        "constructorId → Dim_Constructor[constructorId]",
+        "statusId → Dim_Status[statusId]"
+      ],
+      "medidas": [
+        "resultId",
+        "number",
+        "grid",
+        "position",
+        "positionText",
+        "positionOrder",
+        "points",
+        "laps",
+        "time",
+        "milliseconds",
+        "fastestLap",
+        "rank",
+        "fastestLapTime",
+        "fastestLapSpeed"
+      ],
+      "filas": 26080,
+      "cambios": [
+        "Renombrar a Fact_RaceResults",
+        "Mantener todos los campos numéricos como medidas",
+        "Asegurar que todas las FK tengan relaciones activas"
+      ]
+    },
+    
+    "relaciones_propuestas": [
+      {
+        "desde": "Fact_RaceResults[constructorId]",
+        "hacia": "Dim_Constructor[constructorId]",
+        "cardinalidad": "Many-to-One",
+        "direccion_filtro": "Single (Dim_Constructor → Fact_RaceResults)",
+        "tipo_join": "Inner",
+        "es_activa": true,
+        "notas": "Relación principal constructor"
+      },
+      {
+        "desde": "Fact_RaceResults[driverId]",
+        "hacia": "Dim_Driver[driverId]",
+        "cardinalidad": "Many-to-One",
+        "direccion_filtro": "Single (Dim_Driver → Fact_RaceResults)",
+        "tipo_join": "Inner",
+        "es_activa": true,
+        "notas": "Relación principal piloto"
+      },
+      {
+        "desde": "Fact_RaceResults[raceId]",
+        "hacia": "Dim_Race[raceId]",
+        "cardinalidad": "Many-to-One",
+        "direccion_filtro": "Single (Dim_Race → Fact_RaceResults)",
+        "tipo_join": "Inner",
+        "es_activa": true,
+        "notas": "NUEVA RELACIÓN - requiere crear Dim_Race"
+      },
+      {
+        "desde": "Fact_RaceResults[statusId]",
+        "hacia": "Dim_Status[statusId]",
+        "cardinalidad": "Many-to-One",
+        "direccion_filtro": "Single (Dim_Status → Fact_RaceResults)",
+        "tipo_join": "Inner",
+        "es_activa": true,
+        "notas": "NUEVA RELACIÓN - requiere crear Dim_Status"
+      },
+      {
+        "desde": "Dim_Race[date]",
+        "hacia": "Dim_Calendar[Date]",
+        "cardinalidad": "Many-to-One",
+        "direccion_filtro": "Single (Dim_Calendar → Dim_Race)",
+        "tipo_join": "Inner",
+        "es_activa": true,
+        "notas": "RELACIÓN OPCIONAL - solo si se crea Dim_Calendar"
+      }
+    ],
+    
+    "medidas_dax_propuestas": [
+      {
+        "nombre": "Total Points",
+        "formula_dax": "SUM(Fact_RaceResults[points])",
+        "categoria": "Básicas"
+      },
+      {
+        "nombre": "Average Position",
+        "formula_dax": "AVERAGE(Fact_RaceResults[position])",
+        "categoria": "Básicas"
+      },
+      {
+        "nombre": "Race Count",
+        "formula_dax": "DISTINCTCOUNT(Fact_RaceResults[raceId])",
+        "categoria": "Básicas"
+      },
+      {
+        "nombre": "Position Order Count (Filtered)",
+        "formula_dax": "CALCULATE(COUNT(Fact_RaceResults[positionOrder]), campo[campo] = 1)",
+        "categoria": "Set Analysis Equivalent",
+        "notas": "⚠️ Requiere resolver campo 'campo' primero"
+      },
+      {
+        "nombre": "Performance %",
+        "formula_dax": "SUMX(Fact_RaceResults, DIVIDE(Fact_RaceResults[points] - Fact_RaceResults[positionOrder], Fact_RaceResults[positionOrder], 0))",
+        "categoria": "Calculadas",
+        "origen_qlikview": "sum((points-positionOrder)/positionOrder)"
+      },
+      {
+        "nombre": "Wins",
+        "formula_dax": "CALCULATE(COUNT(Fact_RaceResults[resultId]), Fact_RaceResults[position] = 1)",
+        "categoria": "KPIs"
+      },
+      {
+        "nombre": "Podiums",
+        "formula_dax": "CALCULATE(COUNT(Fact_RaceResults[resultId]), Fact_RaceResults[position] <= 3)",
+        "categoria": "KPIs"
+      },
+      {
+        "nombre": "DNF Count",
+        "formula_dax": "CALCULATE(COUNT(Fact_RaceResults[resultId]), ISBLANK(Fact_RaceResults[position]))",
+        "categoria": "KPIs",
+        "notas": "Did Not Finish - requiere validar lógica"
+      }
+    ],
+    
+    "jerarquias_propuestas": [
+      {
+        "nombre": "Constructor Hierarchy",
+        "tabla": "Dim_Constructor",
+        "niveles": [
+          "nationalityCostructor",
+          "name"
+        ],
+        "uso": "Análisis por nacionalidad de constructor"
+      },
+      {
+        "nombre": "Driver Hierarchy",
+        "tabla": "Dim_Driver",
+        "niveles": [
+          "nationalityDriver",
+          "surname"
+        ],
+        "uso": "Análisis por nacionalidad de piloto"
+      },
+      {
+        "nombre": "Time Hierarchy",
+        "tabla": "Dim_Race",
+        "niveles": [
+          "year",
+          "round"
+        ],
+        "uso": "Análisis temporal de temporadas y carreras",
+        "requiere": "Crear Dim_Race primero"
+      }
+    ],
+    
+    "validaciones_propuestas": [
+      "⚠️ Verificar que no haya duplicados en claves primarias",
+      "⚠️ Validar cardinalidades: 26080 resultados ÷ 1091 carreras ≈ 24 pilotos/carrera (razonable)",
+      "⚠️ Verificar integridad referencial: todos los FK deben existir en dimensiones",
+      "⚠️ Resolver campo 'campo' antes de migrar expresiones",
+      "⚠️ Confirmar que positionOrder no es duplicado de position",
+      "✅ No se detectaron relaciones many-to-many problemáticas",
+      "✅ No se detectaron bucles/referencias circulares"
+    ]
+  },
+  
+  "recomendaciones_migracion": {
+    "prioridad_alta": [
+      "Identificar y documentar el campo 'campo' usado en Set Analysis",
+      "Crear tabla Dim_Race con información de carreras",
+      "Validar las relaciones entre tablas antes de la migración",
+      "Convertir todas las expresiones QlikView a medidas DAX"
+    ],
+    "prioridad_media": [
+      "Crear tabla Dim_Status con descripciones de estados",
+      "Estandarizar nombres de grupos dimensionales",
+      "Revisar y optimizar campos con ByteSize=0",
+      "Documentar la lógica de negocio detrás de cada cálculo"
+    ],
+    "prioridad_baja": [
+      "Crear tabla Dim_Calendar para análisis temporal avanzado",
+      "Optimizar nombres de campos (ej: nationalityCostructor → nationality_constructor)",
+      "Agregar columnas calculadas adicionales (ej: edad del piloto, años de experiencia)",
+      "Crear bookmarks/marcadores equivalentes en Power BI"
+    ],
+    "buenas_practicas": [
+      "Usar prefijos Dim_ y Fact_ para claridad",
+      "Crear una tabla de medidas para centralizar todas las medidas DAX",
+      "Documentar cada medida con descripciones claras",
+      "Establecer formatos de número consistentes",
+      "Configurar RLS (Row Level Security) si es necesario"
+    ]
+  },
+  
+  "notas_adicionales": {
+    "fuente_datos_original": "Formula1 - Historico.xlsx (Excel)",
+    "hojas_excel": ["constructor", "results", "drivers"],
+    "tipo_carga": "LOAD directo desde Excel (no hay SQL)",
+    "transformaciones_detectadas": "Mínimas - principalmente LOAD directo",
+    "variables_personalizadas": "Ninguna detectada (solo variables del sistema)",
+    "set_analysis_patron": "Uso intensivo de {<campo={1}>} para filtrado",
+    "locale": "es-ES (Español de España)",
+    "separadores": "Decimal: coma (,), Miles: punto (.)",
+    "formato_fecha": "D/M/YYYY",
+    "formato_moneda": "#.##0,00 €"
+  }
+}
