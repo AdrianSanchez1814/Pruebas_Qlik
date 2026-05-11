@@ -1,0 +1,397 @@
+{
+  "_meta": {
+    "app_name": "F1 codigo y objetos",
+    "qlikview_build": "50689",
+    "last_reload_time": "2026-04-21 17:19:52 UTC",
+    "analysis_date": "2026-05-05",
+    "source": "Set Pruebas/F1 codigo y objetos.qvw"
+  },
+  "data_model": {
+    "tables": [
+      {
+        "table_name": "constructor",
+        "internal_number": 0,
+        "row_count": 211,
+        "field_count": 4,
+        "key_fields": 1,
+        "byte_size": 772,
+        "table_type": "dimension",
+        "is_system": false,
+        "is_semantic": false,
+        "is_loose": false,
+        "is_linked": false,
+        "fields": [
+          {
+            "name": "constructorId",
+            "cardinal": 211,
+            "total_count": 211,
+            "is_key": true,
+            "is_numeric": true
+          },
+          {
+            "name": "constructorRef",
+            "cardinal": 211,
+            "total_count": 211,
+            "is_key": false,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "name": "name",
+            "cardinal": 211,
+            "total_count": 211,
+            "is_numeric": false,
+            "tags": ["$text"]
+          },
+          {
+            "name": "nationalityCostructor",
+            "cardinal": 20,
+            "total_count": 211,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          }
+        ]
+      },
+      {
+        "table_name": "Resultados",
+        "internal_number": 1,
+        "row_count": 26080,
+        "field_count": 18,
+        "key_fields": 2,
+        "byte_size": 528211,
+        "table_type": "fact",
+        "is_system": false,
+        "is_semantic": false,
+        "is_loose": false,
+        "is_linked": false,
+        "fields": [
+          {
+            "name": "resultId",
+            "cardinal": 26080,
+            "total_count": 26080,
+            "is_key": true,
+            "is_numeric": true
+          },
+          {
+            "name": "raceId",
+            "cardinal": 1104,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "driverId",
+            "cardinal": 857,
+            "total_count": 26080,
+            "is_key": true,
+            "is_numeric": true
+          },
+          {
+            "name": "constructorId",
+            "cardinal": 211,
+            "total_count": 26080,
+            "is_numeric": true,
+            "relationship": "FK to constructor"
+          },
+          {
+            "name": "number",
+            "cardinal": 217,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "grid",
+            "cardinal": 35,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "position",
+            "cardinal": 40,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "positionText",
+            "cardinal": 48,
+            "total_count": 26080,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "name": "positionOrder",
+            "cardinal": 40,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "points",
+            "cardinal": 71,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "laps",
+            "cardinal": 95,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "time",
+            "cardinal": 17836,
+            "total_count": 26080,
+            "is_numeric": false,
+            "tags": ["$text"]
+          },
+          {
+            "name": "milliseconds",
+            "cardinal": 19599,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "fastestLap",
+            "cardinal": 92,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "rank",
+            "cardinal": 41,
+            "total_count": 26080,
+            "is_numeric": true
+          },
+          {
+            "name": "fastestLapTime",
+            "cardinal": 17914,
+            "total_count": 26080,
+            "is_numeric": false,
+            "tags": ["$text"]
+          },
+          {
+            "name": "fastestLapSpeed",
+            "cardinal": 8892,
+            "total_count": 26080,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "name": "statusId",
+            "cardinal": 138,
+            "total_count": 26080,
+            "is_numeric": true
+          }
+        ]
+      },
+      {
+        "table_name": "Drivers",
+        "internal_number": 2,
+        "row_count": 857,
+        "field_count": 8,
+        "key_fields": 1,
+        "byte_size": 7340,
+        "table_type": "dimension",
+        "is_system": false,
+        "is_semantic": false,
+        "is_loose": false,
+        "is_linked": false,
+        "fields": [
+          {
+            "name": "driverId",
+            "cardinal": 857,
+            "total_count": 857,
+            "is_key": true,
+            "is_numeric": true,
+            "relationship": "PK, relates to Resultados"
+          },
+          {
+            "name": "driverRef",
+            "cardinal": 857,
+            "total_count": 857,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "name": "number",
+            "cardinal": 95,
+            "total_count": 857,
+            "is_numeric": true
+          },
+          {
+            "name": "code",
+            "cardinal": 95,
+            "total_count": 857,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          },
+          {
+            "name": "forename",
+            "cardinal": 476,
+            "total_count": 857,
+            "is_numeric": false,
+            "tags": ["$text"]
+          },
+          {
+            "name": "surname",
+            "cardinal": 798,
+            "total_count": 857,
+            "is_numeric": false,
+            "tags": ["$text"]
+          },
+          {
+            "name": "dob",
+            "cardinal": 839,
+            "total_count": 857,
+            "is_numeric": true
+          },
+          {
+            "name": "nationalityDriver",
+            "cardinal": 42,
+            "total_count": 857,
+            "is_numeric": false,
+            "tags": ["$ascii", "$text"]
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from_table": "Resultados",
+        "from_field": "constructorId",
+        "to_table": "constructor",
+        "to_field": "constructorId",
+        "relationship_type": "many-to-one",
+        "cardinality": "26080:211"
+      },
+      {
+        "from_table": "Resultados",
+        "from_field": "driverId",
+        "to_table": "Drivers",
+        "to_field": "driverId",
+        "relationship_type": "many-to-one",
+        "cardinality": "26080:857"
+      }
+    ],
+    "groups": [
+      {
+        "name": "CiclicoG",
+        "is_cyclic": true,
+        "fields": ["constructorRef", "driverRef"],
+        "type": "Cyclic Group"
+      },
+      {
+        "name": "JerarquicoG",
+        "is_cyclic": false,
+        "fields": ["constructorRef", "driverRef"],
+        "type": "Drill-Down Group"
+      }
+    ]
+  },
+  "data_sources": {
+    "excel_files": [
+      {
+        "source": "Formula1 - Historico.xlsx",
+        "path": "c:\\users\\jorgebolanos\\onedrive - epam\\bola_qlik\\aqualiamigracionqlik_pbi\\set pruebas\\formula1 - historico.xlsx",
+        "sheets": ["constructor", "results", "drivers"],
+        "load_type": "Direct LOAD"
+      }
+    ]
+  },
+  "qvd_generation": [
+    {
+      "qvd_name": "constructor.qvd",
+      "source_table": "constructor",
+      "statement": "STORE constructor INTO constructor.qvd (qvd)"
+    },
+    {
+      "qvd_name": "Resultados.qvd",
+      "source_table": "Resultados",
+      "statement": "STORE Resultados INTO Resultados.qvd (qvd)"
+    }
+  ],
+  "star_schema_proposal": {
+    "fact_tables": [
+      {
+        "table_name": "Resultados",
+        "reason": "Contains transactional data with measures (points, laps, time, milliseconds) and foreign keys to dimensions",
+        "measures": ["points", "laps", "milliseconds", "grid", "position", "positionOrder", "rank"],
+        "foreign_keys": ["constructorId", "driverId", "raceId", "statusId"]
+      }
+    ],
+    "dimension_tables": [
+      {
+        "table_name": "constructor",
+        "reason": "Contains descriptive attributes about constructors",
+        "primary_key": "constructorId",
+        "attributes": ["constructorRef", "name", "nationalityCostructor"]
+      },
+      {
+        "table_name": "Drivers",
+        "reason": "Contains descriptive attributes about drivers",
+        "primary_key": "driverId",
+        "attributes": ["driverRef", "number", "code", "forename", "surname", "dob", "nationalityDriver"]
+      }
+    ],
+    "missing_dimensions": [
+      {
+        "dimension_name": "Race",
+        "reason": "raceId exists in Resultados but no Race dimension table found",
+        "suggested_fields": ["raceId", "raceName", "raceDate", "circuitId", "year"]
+      },
+      {
+        "dimension_name": "Status",
+        "reason": "statusId exists in Resultados but no Status dimension table found",
+        "suggested_fields": ["statusId", "status"]
+      }
+    ]
+  },
+  "problematic_joins": [
+    {
+      "issue": "⚠️ Cyclic Group (CiclicoG)",
+      "description": "The cyclic group with constructorRef and driverRef may cause issues in Power BI star schema",
+      "recommendation": "Convert to separate filter tables or use DAX relationships instead of cyclic groups",
+      "impact": "medium"
+    },
+    {
+      "issue": "⚠️ Missing Race dimension",
+      "description": "raceId in Resultados fact table has no corresponding dimension",
+      "recommendation": "Create a Race dimension table with race details",
+      "impact": "high"
+    },
+    {
+      "issue": "⚠️ Missing Status dimension",
+      "description": "statusId in Resultados fact table has no corresponding dimension",
+      "recommendation": "Create a Status dimension table to describe result status",
+      "impact": "medium"
+    }
+  ],
+  "variables": [
+    {
+      "name": "ErrorMode",
+      "is_config": false,
+      "is_reserved": true,
+      "shown_value": "",
+      "raw_value": ""
+    },
+    {
+      "name": "StripComments",
+      "is_config": false,
+      "is_reserved": true,
+      "shown_value": "",
+      "raw_value": ""
+    },
+    {
+      "name": "OpenUrlTimeout",
+      "is_config": false,
+      "is_reserved": true,
+      "shown_value": "",
+      "raw_value": ""
+    },
+    {
+      "name": "ScriptError",
+      "is_config": false,
+      "is_reserved": true,
+      "shown_value": "",
+      "raw_value": ""
+    }
+  ]
+}

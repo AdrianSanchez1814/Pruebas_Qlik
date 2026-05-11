@@ -1,0 +1,14 @@
+name: f1_historico
+version: 1.0.0
+config-version: 2
+profile: f1_snowflake
+model-paths: [models]
+
+models:
+  f1_historico:
+    bronze:
+      +materialized: view
+    silver:
+      +materialized: table
+    gold:
+      +materialized: table

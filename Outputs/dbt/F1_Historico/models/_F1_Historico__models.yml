@@ -1,0 +1,201 @@
+version: 2
+
+models:
+  - name: stg_f1_constructor
+    description: "Bronze layer: Staging model for Constructor dimension with data cleaning and deduplication"
+    columns:
+      - name: constructor_key
+        description: "Primary key for constructor dimension"
+        tests:
+          - not_null
+          - unique
+      - name: constructor_name
+        description: "Cleaned constructor/team name"
+        tests:
+          - not_null
+      - name: nationality
+        description: "Constructor nationality"
+      - name: info_url
+        description: "Reference URL"
+      - name: _loaded_at
+        description: "Timestamp when record was loaded"
+
+  - name: stg_f1_drivers
+    description: "Bronze layer: Staging model for Driver dimension with data cleaning and deduplication"
+    columns:
+      - name: driver_key
+        description: "Primary key for driver dimension"
+        tests:
+          - not_null
+          - unique
+      - name: driver_id
+        description: "Numeric driver identifier"
+        tests:
+          - not_null
+      - name: driver_code
+        description: "Three-letter driver code"
+      - name: first_name
+        description: "Driver first name"
+      - name: last_name
+        description: "Driver last name"
+      - name: full_name
+        description: "Concatenated full name"
+        tests:
+          - not_null
+      - name: date_of_birth
+        description: "Driver date of birth"
+      - name: nationality
+        description: "Driver nationality"
+      - name: _loaded_at
+        description: "Timestamp when record was loaded"
+
+  - name: stg_f1_results
+    description: "Bronze layer: Staging model for race results fact table with business indicators"
+    columns:
+      - name: result_id
+        description: "Primary key for race result"
+        tests:
+          - not_null
+          - unique
+      - name: race_id
+        description: "Foreign key to race dimension"
+        tests:
+          - not_null
+      - name: driver_id
+        description: "Foreign key to driver dimension"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "Foreign key to constructor dimension"
+        tests:
+          - not_null
+      - name: final_position
+        description: "Final finishing position in race"
+      - name: position_order
+        description: "Position order including DNF"
+      - name: points_earned
+        description: "Championship points earned in race"
+      - name: is_finished
+        description: "Boolean indicator if driver finished race"
+      - name: is_podium
+        description: "Boolean indicator for podium finish (1st, 2nd, 3rd)"
+      - name: is_points_finish
+        description: "Boolean indicator for points-scoring finish"
+
+  - name: int_f1_results_enriched
+    description: "Silver layer: Enriched results with joined dimension data and calculated metrics. Grain: One row per race result."
+    columns:
+      - name: result_id
+        description: "Unique result identifier"
+        tests:
+          - not_null
+          - unique
+      - name: race_id
+        description: "Race identifier"
+        tests:
+          - not_null
+      - name: driver_key
+        description: "Driver dimension key"
+      - name: constructor_key
+        description: "Constructor dimension key"
+      - name: count_valid_positions
+        description: "QlikView Set Analysis translation: Count({<campo={1}>} positionOrder)"
+      - name: positions_gained
+        description: "Grid position - Final position (positive = gained positions)"
+      - name: result_category
+        description: "Categorized result: Winner, Podium, Points, Finished, DNF"
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('stg_f1_results')
+
+  - name: int_f1_constructor_performance
+    description: "Silver layer: Aggregated constructor performance metrics. Grain: One row per constructor."
+    columns:
+      - name: constructor_key
+        description: "Constructor dimension key"
+        tests:
+          - not_null
+          - unique
+      - name: total_races
+        description: "Total races participated"
+      - name: sum_position_order
+        description: "QlikView translation: Sum(positionOrder)"
+      - name: count_finished_positions
+        description: "QlikView Set Analysis: Count of valid finished positions"
+      - name: total_points
+        description: "Total championship points earned"
+      - name: win_rate_pct
+        description: "Win percentage across all races"
+      - name: points_per_race
+        description: "Average points per race"
+
+  - name: mart_f1_race_results
+    description: "Gold layer: Fact table for Power BI with pre-calculated QlikView metrics. Star schema design."
+    columns:
+      - name: result_key
+        description: "Primary key for fact table"
+        tests:
+          - not_null
+          - unique
+      - name: race_key
+        description: "Foreign key to race dimension"
+        tests:
+          - not_null
+      - name: driver_key
+        description: "Foreign key to driver dimension"
+      - name: constructor_key
+        description: "Foreign key to constructor dimension"
+      - name: metric_count_valid_positions
+        description: "Pre-calculated: QlikView Count({<campo={1}>} positionOrder)"
+      - name: metric_sum_position_order
+        description: "Pre-calculated: QlikView Sum(positionOrder)"
+      - name: points_earned
+        description: "Championship points (measure for aggregation)"
+      - name: is_winner
+        description: "Boolean flag for filtering winners"
+      - name: is_podium
+        description: "Boolean flag for filtering podium finishes"
+      - name: is_points_finish
+        description: "Boolean flag for filtering points scorers"
+
+  - name: mart_f1_dim_constructor
+    description: "Gold layer: Constructor dimension for Power BI with aggregated career statistics"
+    columns:
+      - name: constructor_key
+        description: "Primary key for dimension"
+        tests:
+          - not_null
+          - unique
+      - name: constructor_name
+        description: "Constructor/Team name"
+      - name: constructor_nationality
+        description: "Team nationality"
+      - name: total_races
+        description: "Career total races"
+      - name: total_points
+        description: "Career total points"
+      - name: team_category
+        description: "Hierarchical category: Championship Winning Team, Podium Competitor, Points Scorer, Emerging Team"
+
+  - name: mart_f1_dim_driver
+    description: "Gold layer: Driver dimension for Power BI with career statistics"
+    columns:
+      - name: driver_key
+        description: "Primary key for dimension"
+        tests:
+          - not_null
+          - unique
+      - name: driver_id
+        description: "Numeric driver identifier"
+      - name: full_name
+        description: "Driver full name"
+      - name: driver_nationality
+        description: "Driver nationality"
+      - name: total_career_races
+        description: "Career total races"
+      - name: total_career_points
+        description: "Career championship points"
+      - name: total_career_wins
+        description: "Career race wins"
+      - name: driver_category
+        description: "Classification: Legend, Race Winner, Podium Finisher, Points Scorer, Rookie"
