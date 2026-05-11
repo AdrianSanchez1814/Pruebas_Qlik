@@ -1,0 +1,35 @@
+{
+  "proyecto": "F1 Histórico",
+  "fecha_analisis": "2026-05-05",
+  "aplicaciones": [
+    {
+      "nombre": "F1 codigo y objetos.qvw",
+      "orden_ejecucion": 1,
+      "rol": "ETL + visualización",
+      "ultima_recarga": "2026-04-21 17:19:52 UTC",
+      "tablas": [
+        {
+          "nombre": "constructor",
+          "numero_registros": 211,
+          "numero_campos": 4
+        },
+        {
+          "nombre": "Resultados",
+          "numero_registros": 26080,
+          "numero_campos": 18
+        },
+        {
+          "nombre": "Drivers",
+          "numero_registros": 857,
+          "numero_campos": 8
+        }
+      ],
+      "qvds_generados": ["constructor.qvd", "Resultados.qvd"]
+    }
+  ],
+  "resumen": {
+    "total_aplicaciones": 3,
+    "total_tablas": 3,
+    "total_registros": 27148
+  }
+}
